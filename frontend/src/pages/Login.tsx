@@ -7,6 +7,10 @@ import {
   EnvelopeIcon,
   LockClosedIcon,
   UserIcon,
+  ArrowLeftIcon,
+  ShieldCheckIcon,
+  DevicePhoneMobileIcon,
+  SparklesIcon,
 } from "@heroicons/react/24/outline";
 
 const Login: React.FC = () => {
@@ -36,84 +40,232 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#9FE870]/10 via-white to-[#FFC091]/10 relative overflow-hidden">
-      {/* Floating Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <motion.div
-          className="absolute top-20 left-10 w-32 h-32 bg-[#9FE870]/20 rounded-full"
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [-10, 10, -10],
-            y: [-15, 15, -15],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute top-40 right-16 w-24 h-24 bg-[#FFC091]/25 rounded-2xl"
-          animate={{
-            rotate: [0, 180, 360],
-            scale: [1, 1.3, 1],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-32 left-20 w-20 h-20 bg-[#260A2F]/15 rounded-xl"
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, -90, 0],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-32 w-28 h-28 bg-[#163300]/20 rounded-3xl"
-          animate={{
-            x: [0, -15, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 22,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
+    <div className="min-h-screen bg-white flex">
+      {/* Left Side - Content */}
+      <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-[#163300] to-[#9FE870] relative overflow-hidden">
+        {/* Back to Home Button */}
+        <Link
+          to="/"
+          className="absolute top-6 left-6 z-20 flex items-center text-white hover:text-[#FFC091] transition-colors group"
+        >
+          <ArrowLeftIcon className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" />
+          <span className="font-semibold">Kembali ke Beranda</span>
+        </Link>
+
+        {/* Floating Background Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            className="absolute top-20 left-16 w-32 h-32 bg-white/10 rounded-full"
+            animate={{
+              scale: [1, 1.2, 1],
+              x: [-10, 10, -10],
+              y: [-15, 15, -15],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute top-40 right-20 w-24 h-24 bg-[#FFC091]/20 rounded-2xl"
+            animate={{
+              rotate: [0, 180, 360],
+              scale: [1, 1.3, 1],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-32 left-24 w-20 h-20 bg-white/15 rounded-xl"
+            animate={{
+              y: [0, -20, 0],
+              rotate: [0, -90, 0],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-20 right-32 w-28 h-28 bg-[#260A2F]/20 rounded-3xl"
+            animate={{
+              x: [0, -15, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 22,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col justify-center px-12 py-16 text-white">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="mb-8">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-6"
+              >
+                <UserIcon className="w-8 h-8 text-white" />
+              </motion.div>
+              <h1 className="text-4xl xl:text-5xl font-bold mb-4 leading-tight">
+                Selamat Datang
+                <br />
+                Kembali!
+              </h1>
+              <p className="text-xl text-white/80 mb-8 leading-relaxed">
+                Masuk ke akun LinkOTP Anda dan nikmati kemudahan verifikasi OTP
+                untuk berbagai platform.
+              </p>
+            </div>
+
+            {/* Features */}
+            <div className="space-y-6">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="flex items-center space-x-4"
+              >
+                <div className="flex-shrink-0 w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <ShieldCheckIcon className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-white">
+                    Keamanan Terjamin
+                  </h3>
+                  <p className="text-white/70">
+                    Sistem keamanan berlapis untuk melindungi data Anda
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="flex items-center space-x-4"
+              >
+                <div className="flex-shrink-0 w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <DevicePhoneMobileIcon className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-white">
+                    Multi Platform
+                  </h3>
+                  <p className="text-white/70">
+                    Support untuk WhatsApp, Telegram, dan platform lainnya
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="flex items-center space-x-4"
+              >
+                <div className="flex-shrink-0 w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <SparklesIcon className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-white">
+                    Mudah Digunakan
+                  </h3>
+                  <p className="text-white/70">
+                    Interface yang intuitif dan mudah dipahami
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
       </div>
 
-      <div className="relative z-10 flex items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="w-full max-w-md"
+      {/* Right Side - Form */}
+      <div className="flex-1 flex items-center justify-center p-6 lg:p-12 relative">
+        {/* Mobile Back Button */}
+        <Link
+          to="/"
+          className="lg:hidden absolute top-6 left-6 z-20 flex items-center text-gray-600 hover:text-[#163300] transition-colors group"
         >
-          {/* Header */}
-          <div className="text-center mb-8">
+          <ArrowLeftIcon className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" />
+          <span className="font-semibold">Kembali</span>
+        </Link>
+
+        {/* Mobile Background Elements */}
+        <div className="lg:hidden absolute inset-0 pointer-events-none">
+          <motion.div
+            className="absolute top-20 right-10 w-24 h-24 bg-[#9FE870]/10 rounded-full"
+            animate={{
+              scale: [1, 1.2, 1],
+              x: [-8, 8, -8],
+              y: [-12, 12, -12],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-32 left-8 w-20 h-20 bg-[#FFC091]/15 rounded-2xl"
+            animate={{
+              rotate: [0, 180, 360],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="w-full max-w-md relative z-10"
+        >
+          {/* Mobile Header */}
+          <div className="lg:hidden text-center mb-8 mt-16">
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#9FE870] to-[#163300] rounded-2xl mb-6 shadow-lg"
+              className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#9FE870] to-[#163300] rounded-2xl mb-6 shadow-lg"
             >
-              <UserIcon className="w-10 h-10 text-white" />
+              <UserIcon className="w-8 h-8 text-white" />
             </motion.div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              Selamat Datang
+            </h1>
+            <p className="text-gray-600 text-lg">Masuk ke akun LinkOTP Anda</p>
+          </div>
+
+          {/* Desktop Header */}
+          <div className="hidden lg:block text-center mb-8">
             <motion.h1
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2"
+              className="text-3xl xl:text-4xl font-bold text-gray-900 mb-2"
             >
-              Selamat Datang
+              Masuk ke Akun
             </motion.h1>
             <motion.p
               initial={{ opacity: 0 }}
@@ -121,7 +273,7 @@ const Login: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-gray-600 text-lg"
             >
-              Masuk ke akun LinkOTP Anda
+              Silakan masuk untuk melanjutkan
             </motion.p>
           </div>
 
@@ -130,7 +282,7 @@ const Login: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="bg-white/70 backdrop-blur-sm rounded-3xl shadow-xl border border-gray-100 p-6 sm:p-8"
+            className="bg-white/70 lg:bg-white backdrop-blur-sm rounded-3xl shadow-xl border border-gray-100 p-6 sm:p-8"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Email Input */}
