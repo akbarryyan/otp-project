@@ -6,6 +6,9 @@ import {
   Navigation,
   HeroSection,
   FeaturesSection,
+  OTPServicesSection,
+  HowItWorksSection,
+  TestimonialsSection,
   FooterSection,
   MobileBottomNavigation,
 } from "../components/landingPage";
@@ -77,39 +80,11 @@ function Landing() {
 
       <FeaturesSection />
 
-      {/* Placeholder for other sections that haven't been converted yet */}
-      <div id="services" className="py-20 bg-gray-100">
-        <div className="container mx-auto px-8">
-          <h2 className="text-4xl font-bold text-center mb-8">
-            Services Section
-          </h2>
-          <p className="text-center text-gray-600">
-            This section will be converted to a component later.
-          </p>
-        </div>
-      </div>
+      <OTPServicesSection />
 
-      <div id="how-it-works" className="py-20 bg-white">
-        <div className="container mx-auto px-8">
-          <h2 className="text-4xl font-bold text-center mb-8">
-            How It Works Section
-          </h2>
-          <p className="text-center text-gray-600">
-            This section will be converted to a component later.
-          </p>
-        </div>
-      </div>
+      <HowItWorksSection />
 
-      <div id="testimonials" className="py-20 bg-gray-100">
-        <div className="container mx-auto px-8">
-          <h2 className="text-4xl font-bold text-center mb-8">
-            Testimonials Section
-          </h2>
-          <p className="text-center text-gray-600">
-            This section will be converted to a component later.
-          </p>
-        </div>
-      </div>
+      <TestimonialsSection />
 
       <FooterSection />
 
