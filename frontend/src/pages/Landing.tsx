@@ -11,7 +11,16 @@ import {
   ClockIcon,
   ArrowRightIcon,
   PlayIcon,
+  CurrencyDollarIcon,
+  CheckCircleIcon,
+  UserGroupIcon,
+  DocumentTextIcon,
+  CreditCardIcon,
+  PhoneIcon,
+  EnvelopeIcon,
+  MapPinIcon,
 } from "@heroicons/react/24/outline";
+import { StarIcon as StarSolid } from "@heroicons/react/24/solid";
 import Container from "@components/common/Container";
 
 const features = [
@@ -66,6 +75,146 @@ const supportedPlatforms = [
   { name: "Airbnb", category: "travel" },
   { name: "Netflix", category: "entertainment" },
   { name: "Spotify", category: "entertainment" },
+];
+
+// OTP Services data
+const otpServices = [
+  {
+    country: "Indonesia",
+    operator: "Telkomsel",
+    price: "$0.15",
+    availability: "Available",
+    flag: "🇮🇩",
+    successRate: "99.8%",
+  },
+  {
+    country: "Malaysia",
+    operator: "Maxis",
+    price: "$0.18",
+    availability: "Available",
+    flag: "🇲🇾",
+    successRate: "99.5%",
+  },
+  {
+    country: "Singapore",
+    operator: "Singtel",
+    price: "$0.22",
+    availability: "Available",
+    flag: "🇸🇬",
+    successRate: "99.9%",
+  },
+  {
+    country: "Thailand",
+    operator: "AIS",
+    price: "$0.20",
+    availability: "Available",
+    flag: "🇹🇭",
+    successRate: "99.7%",
+  },
+  {
+    country: "Philippines",
+    operator: "Globe",
+    price: "$0.17",
+    availability: "Limited",
+    flag: "🇵🇭",
+    successRate: "98.9%",
+  },
+  {
+    country: "Vietnam",
+    operator: "Viettel",
+    price: "$0.16",
+    availability: "Available",
+    flag: "🇻🇳",
+    successRate: "99.3%",
+  },
+  {
+    country: "India",
+    operator: "Airtel",
+    price: "$0.12",
+    availability: "Available",
+    flag: "🇮🇳",
+    successRate: "99.1%",
+  },
+  {
+    country: "United States",
+    operator: "Verizon",
+    price: "$0.35",
+    availability: "Available",
+    flag: "🇺🇸",
+    successRate: "99.9%",
+  },
+];
+
+// How it works steps
+const workSteps = [
+  {
+    step: 1,
+    title: "Pilih Layanan",
+    description: "Pilih negara dan platform yang ingin Anda verifikasi",
+    icon: GlobeAltIcon,
+    color: "from-blue-500 to-cyan-400",
+  },
+  {
+    step: 2,
+    title: "Dapatkan Nomor",
+    description: "Sistem akan memberikan nomor virtual secara instan",
+    icon: DevicePhoneMobileIcon,
+    color: "from-purple-500 to-pink-400",
+  },
+  {
+    step: 3,
+    title: "Terima OTP",
+    description: "Gunakan nomor tersebut dan tunggu kode verifikasi masuk",
+    icon: BoltIcon,
+    color: "from-yellow-500 to-orange-400",
+  },
+  {
+    step: 4,
+    title: "Selesai!",
+    description: "Akun Anda berhasil diverifikasi dan siap digunakan",
+    icon: CheckBadgeIcon,
+    color: "from-green-500 to-emerald-400",
+  },
+];
+
+// Testimonials data
+const testimonials = [
+  {
+    name: "Ahmad Rizki",
+    role: "Developer",
+    company: "Tech Startup",
+    content:
+      "LinkOTP sangat membantu untuk testing aplikasi saya. Layanan cepat dan reliable, harga juga sangat terjangkau.",
+    rating: 5,
+    avatar: "AR",
+  },
+  {
+    name: "Sarah Chen",
+    role: "Digital Marketer",
+    company: "E-commerce Co",
+    content:
+      "Sebagai marketer yang sering butuh akun testing, LinkOTP jadi solusi terbaik. Support 100+ negara dan selalu available.",
+    rating: 5,
+    avatar: "SC",
+  },
+  {
+    name: "Michael Johnson",
+    role: "QA Engineer",
+    company: "Software House",
+    content:
+      "Interface yang user-friendly dan response time yang sangat cepat. Tim support juga sangat responsif ketika ada kendala.",
+    rating: 5,
+    avatar: "MJ",
+  },
+  {
+    name: "Priya Sharma",
+    role: "Product Manager",
+    company: "Mobile App",
+    content:
+      "Tingkat keberhasilan 99.9% benar-benar terbukti. Sudah 6 bulan pakai dan hampir tidak pernah ada masalah.",
+    rating: 5,
+    avatar: "PS",
+  },
 ];
 
 const stats = [
@@ -612,9 +761,279 @@ function Landing() {
               transition={{ duration: 0.6, delay: 0.5 }}
               viewport={{ once: true }}
               className="text-center mt-12"
+            ></motion.div>
+          </div>
+        </Container>
+      </section>
+
+      {/* OTP Services Section */}
+      <section className="py-24 bg-white">
+        <Container className="px-4">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                Layanan OTP
+                <span className="block bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                  Seluruh Dunia
+                </span>
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Pilih dari berbagai negara dan operator dengan harga kompetitif
+                dan tingkat keberhasilan tinggi
+              </p>
+            </motion.div>
+
+            {/* Services Grid */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {otpServices.map((service, index) => (
+                <motion.div
+                  key={service.country}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5 }}
+                  className="group bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-all duration-300"
+                >
+                  {/* Country Header */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <span className="text-2xl">{service.flag}</span>
+                      <div>
+                        <h3 className="font-semibold text-gray-900">
+                          {service.country}
+                        </h3>
+                        <p className="text-sm text-gray-500">
+                          {service.operator}
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        service.availability === "Available"
+                          ? "bg-green-100 text-green-700"
+                          : "bg-yellow-100 text-yellow-700"
+                      }`}
+                    >
+                      {service.availability}
+                    </div>
+                  </div>
+
+                  {/* Price and Stats */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">Harga</span>
+                      <span className="text-lg font-bold text-blue-600">
+                        {service.price}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">
+                        Success Rate
+                      </span>
+                      <span className="text-sm font-semibold text-green-600">
+                        {service.successRate}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Action Button */}
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full mt-4 px-4 py-2 bg-blue-50 hover:bg-blue-100 text-blue-600 font-medium rounded-xl transition-colors duration-200"
+                  >
+                    Pilih Layanan
+                  </motion.button>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* View All Services Button */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true }}
+              className="text-center mt-12"
+            >
+              <Link
+                to="/services"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                Lihat Semua Layanan
+                <ArrowRightIcon className="w-5 h-5 ml-2" />
+              </Link>
+            </motion.div>
+          </div>
+        </Container>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+        <Container className="px-4">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                Cara Kerja
+                <span className="block bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                  Yang Mudah
+                </span>
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Dapatkan nomor virtual dan verifikasi OTP hanya dalam 4 langkah
+                sederhana
+              </p>
+            </motion.div>
+
+            {/* Steps */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {workSteps.map((step, index) => (
+                <motion.div
+                  key={step.step}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                  className="relative"
+                >
+                  {/* Connecting Line */}
+                  {index < workSteps.length - 1 && (
+                    <div className="hidden lg:block absolute top-16 left-full w-full h-0.5 bg-gradient-to-r from-blue-200 to-transparent transform -translate-y-1/2 z-0" />
+                  )}
+
+                  <div className="relative text-center">
+                    {/* Step Number */}
+                    <div className="inline-flex items-center justify-center w-12 h-12 bg-white border-4 border-blue-100 rounded-full text-blue-600 font-bold text-lg mb-6">
+                      {step.step}
+                    </div>
+
+                    {/* Icon */}
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      className={`w-20 h-20 mx-auto rounded-2xl bg-gradient-to-r ${step.color} p-5 mb-6 shadow-lg`}
+                    >
+                      <step.icon className="w-10 h-10 text-white" />
+                    </motion.div>
+
+                    {/* Content */}
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                      {step.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mt-16"
+            >
+              <Link
+                to="/services"
+                className="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                Coba Sekarang
+                <ArrowRightIcon className="w-5 h-5 ml-2" />
+              </Link>
+            </motion.div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-24 bg-white">
+        <Container className="px-4">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                Apa Kata
+                <span className="block bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                  Pengguna Kami?
+                </span>
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Testimoni dari ribuan pengguna yang puas dengan layanan LinkOTP
+              </p>
+            </motion.div>
+
+            {/* Testimonials Grid */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+              {testimonials.map((testimonial, index) => (
+                <motion.div
+                  key={testimonial.name}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5 }}
+                  className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm hover:shadow-lg transition-all duration-300"
+                >
+                  {/* Stars */}
+                  <div className="flex items-center mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <StarSolid key={i} className="w-5 h-5 text-yellow-400" />
+                    ))}
+                  </div>
+
+                  {/* Content */}
+                  <p className="text-gray-700 mb-6 leading-relaxed">
+                    "{testimonial.content}"
+                  </p>
+
+                  {/* Author */}
+                  <div className="flex items-center">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center text-white font-semibold mr-4">
+                      {testimonial.avatar}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">
+                        {testimonial.name}
+                      </h4>
+                      <p className="text-sm text-gray-500">
+                        {testimonial.role} • {testimonial.company}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* View More Testimonials */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true }}
+              className="text-center mt-12"
             >
               <button className="inline-flex items-center px-6 py-3 bg-blue-50 hover:bg-blue-100 text-blue-600 font-medium rounded-xl transition-colors duration-200">
-                Lihat Semua Platform
+                Lihat Testimoni Lainnya
                 <ArrowRightIcon className="w-4 h-4 ml-2" />
               </button>
             </motion.div>
@@ -622,70 +1041,135 @@ function Landing() {
         </Container>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 relative overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/90 to-purple-700/90" />
-          <motion.div
-            className="absolute -top-40 -right-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 8, repeat: Infinity }}
-          />
-          <motion.div
-            className="absolute -bottom-40 -left-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"
-            animate={{ scale: [1.2, 1, 1.2] }}
-            transition={{ duration: 10, repeat: Infinity }}
-          />
-        </div>
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white">
+        <Container className="px-4">
+          <div className="max-w-7xl mx-auto">
+            {/* Main Footer */}
+            <div className="py-16 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Company Info */}
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                    LinkOTP
+                  </h3>
+                  <p className="text-gray-400 mt-2 leading-relaxed">
+                    Platform verifikasi OTP terpercaya untuk semua kebutuhan
+                    bisnis dan personal Anda.
+                  </p>
+                </div>
 
-        <Container className="relative z-10 px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="space-y-8"
-            >
-              <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
-                Siap untuk Memulai?
-              </h2>
-              <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                Bergabunglah dengan ribuan pengguna yang sudah merasakan
-                kemudahan verifikasi OTP dengan LinkOTP. Mulai gratis hari ini!
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Link
-                    to="/services"
-                    className="inline-flex items-center px-8 py-4 text-lg font-semibold text-blue-600 bg-white hover:bg-gray-50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
-                  >
-                    Mulai Sekarang
-                    <ArrowRightIcon className="w-5 h-5 ml-2" />
-                  </Link>
-                </motion.div>
-
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Link
-                    to="/dashboard"
-                    className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white border-2 border-white/30 hover:border-white/50 hover:bg-white/10 rounded-2xl backdrop-blur-sm transition-all duration-300"
-                  >
-                    Lihat Dashboard
-                  </Link>
-                </motion.div>
+                {/* Social Media */}
+                <div>
+                  <h4 className="font-semibold mb-4">Ikuti Kami</h4>
+                  <div className="flex space-x-4">
+                    {["Facebook", "Twitter", "Instagram", "LinkedIn"].map(
+                      (social) => (
+                        <a
+                          key={social}
+                          href="#"
+                          className="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-colors duration-200"
+                        >
+                          <span className="text-xs font-bold">{social[0]}</span>
+                        </a>
+                      )
+                    )}
+                  </div>
+                </div>
               </div>
-            </motion.div>
+
+              {/* Services */}
+              <div>
+                <h4 className="font-semibold mb-6">Layanan</h4>
+                <ul className="space-y-3">
+                  {[
+                    "Verifikasi SMS",
+                    "Nomor Virtual",
+                    "API Integration",
+                    "Bulk Services",
+                    "Enterprise Solution",
+                  ].map((service) => (
+                    <li key={service}>
+                      <a
+                        href="#"
+                        className="text-gray-400 hover:text-white transition-colors duration-200"
+                      >
+                        {service}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Support */}
+              <div>
+                <h4 className="font-semibold mb-6">Dukungan</h4>
+                <ul className="space-y-3">
+                  {[
+                    "Help Center",
+                    "API Documentation",
+                    "Status Page",
+                    "Contact Support",
+                    "FAQ",
+                  ].map((support) => (
+                    <li key={support}>
+                      <a
+                        href="#"
+                        className="text-gray-400 hover:text-white transition-colors duration-200"
+                      >
+                        {support}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Contact */}
+              <div>
+                <h4 className="font-semibold mb-6">Kontak</h4>
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <EnvelopeIcon className="w-5 h-5 text-blue-400" />
+                    <span className="text-gray-400">support@linkotp.com</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <PhoneIcon className="w-5 h-5 text-blue-400" />
+                    <span className="text-gray-400">+62 21 1234 5678</span>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <MapPinIcon className="w-5 h-5 text-blue-400 mt-0.5" />
+                    <span className="text-gray-400">
+                      Jakarta, Indonesia
+                      <br />
+                      Jl. Sudirman No. 123
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Footer */}
+            <div className="py-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+              <p className="text-gray-400 text-sm">
+                © 2025 LinkOTP. All rights reserved.
+              </p>
+              <div className="flex space-x-6 mt-4 md:mt-0">
+                {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(
+                  (link) => (
+                    <a
+                      key={link}
+                      href="#"
+                      className="text-gray-400 hover:text-white text-sm transition-colors duration-200"
+                    >
+                      {link}
+                    </a>
+                  )
+                )}
+              </div>
+            </div>
           </div>
         </Container>
-      </section>
+      </footer>
     </div>
   );
 }
