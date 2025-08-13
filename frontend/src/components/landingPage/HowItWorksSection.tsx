@@ -156,13 +156,27 @@ const HowItWorksSection: React.FC = () => {
                     <motion.div
                       className="absolute top-[-3px] w-2 h-2 bg-[#163300] rounded-full"
                       animate={{
-                        x: ["0%", "100%"],
+                        x: ["0%", "100%", "0%"],
                       }}
                       transition={{
-                        duration: 3,
+                        duration: 4,
                         repeat: Infinity,
-                        ease: "linear",
-                        delay: index * 0.5,
+                        ease: "easeInOut",
+                        delay: index * 0.8,
+                      }}
+                    />
+                    {/* Secondary dot with different timing */}
+                    <motion.div
+                      className="absolute top-[-3px] w-1.5 h-1.5 bg-[#9FE870] rounded-full"
+                      animate={{
+                        x: ["0%", "100%", "0%"],
+                        opacity: [0.8, 1, 0.8],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: index * 0.8 + 0.5,
                       }}
                     />
                   </motion.div>
