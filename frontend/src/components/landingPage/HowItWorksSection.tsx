@@ -41,7 +41,7 @@ const HowItWorksSection: React.FC = () => {
   return (
     <section
       id="how-it-works"
-      className="py-32 bg-gradient-to-br from-[#9FE870]/5 to-[#FFC091]/5 relative overflow-hidden"
+      className="py-16 sm:py-24 md:py-32 bg-gradient-to-br from-[#9FE870]/5 to-[#FFC091]/5 relative overflow-hidden"
     >
       {/* Floating Elements */}
       <div className="absolute inset-0 pointer-events-none">
@@ -110,26 +110,27 @@ const HowItWorksSection: React.FC = () => {
         />
       </div>
 
-      <div className="relative w-full px-8">
+      <div className="relative w-full px-4 sm:px-6 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-16 sm:mb-20 px-4"
         >
-          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
             Cara Kerja
             <span className="block text-[#163300]">Yang Mudah</span>
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
             Dapatkan nomor virtual dan verifikasi OTP hanya dalam 4 langkah
             sederhana
           </p>
         </motion.div>
 
-        <div className="relative">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="relative max-w-7xl mx-auto">
+          {/* Mobile-first responsive layout */}
+          <div className="space-y-8 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-8">
             {workSteps.map((step, index) => (
               <motion.div
                 key={step.step}
@@ -182,10 +183,64 @@ const HowItWorksSection: React.FC = () => {
                   </motion.div>
                 )}
 
-                {/* Step Circle with enhanced styling */}
+                {/* Mobile & Tablet Vertical Connecting Line */}
+                {index < workSteps.length - 1 && (
+                  <motion.div
+                    initial={{ scaleY: 0, opacity: 0 }}
+                    whileInView={{ scaleY: 1, opacity: 1 }}
+                    transition={{ duration: 0.8, delay: index * 0.3 + 0.7 }}
+                    viewport={{ once: true }}
+                    className="lg:hidden absolute left-1/2 transform -translate-x-1/2 top-full mt-6 z-0"
+                    style={{ height: "3rem" }}
+                  >
+                    <div className="w-1 h-full bg-gradient-to-b from-[#9FE870] via-[#FFC091] to-[#9FE870] mx-auto rounded-full relative overflow-hidden shadow-sm">
+                      {/* Animated dots moving along vertical line */}
+                      <motion.div
+                        className="absolute left-[-1.5px] top-0 w-2 h-2 bg-[#163300] rounded-full shadow-sm"
+                        animate={{
+                          y: ["0%", "calc(100% - 8px)", "0%"],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: index * 0.6,
+                        }}
+                      />
+                      <motion.div
+                        className="absolute left-[-1px] top-0 w-1.5 h-1.5 bg-[#9FE870] rounded-full"
+                        animate={{
+                          y: ["0%", "calc(100% - 6px)", "0%"],
+                          opacity: [0.8, 1, 0.8],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: index * 0.6 + 0.5,
+                        }}
+                      />
+                    </div>
+                    {/* Enhanced Arrow at bottom */}
+                    <motion.div
+                      animate={{
+                        y: [0, 4, 0],
+                        scale: [1, 1.1, 1],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                      className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] border-t-[16px] border-l-transparent border-r-transparent border-t-[#FFC091] drop-shadow-sm"
+                    />
+                  </motion.div>
+                )}
+
+                {/* Step Circle with enhanced mobile styling */}
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
-                  className="relative z-10 inline-flex items-center justify-center w-16 h-16 bg-white border-4 border-[#9FE870] rounded-full text-[#163300] font-bold text-xl mb-6 shadow-lg"
+                  className="relative z-10 inline-flex items-center justify-center w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-16 lg:h-16 bg-white border-4 border-[#9FE870] rounded-full text-[#163300] font-bold text-lg sm:text-xl md:text-2xl lg:text-xl mb-6 shadow-lg"
                   style={{
                     background:
                       "linear-gradient(135deg, #ffffff 0%, #f8fffe 100%)",
@@ -209,14 +264,14 @@ const HowItWorksSection: React.FC = () => {
                   />
                 </motion.div>
 
-                {/* Icon Container with enhanced styling */}
+                {/* Icon Container with mobile responsive sizing */}
                 <motion.div
                   whileHover={{
                     scale: 1.15,
                     rotateY: 10,
                     boxShadow: "0 20px 40px rgba(0, 0, 0, 0.2)",
                   }}
-                  className={`relative w-24 h-24 mx-auto rounded-3xl ${step.color} p-6 mb-8 shadow-xl`}
+                  className={`relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-24 lg:h-24 mx-auto rounded-3xl ${step.color} p-4 sm:p-5 md:p-6 lg:p-6 mb-6 md:mb-8 shadow-xl`}
                   style={{
                     background: `linear-gradient(135deg, ${step.color
                       .replace("bg-[", "")
@@ -226,7 +281,7 @@ const HowItWorksSection: React.FC = () => {
                     transformStyle: "preserve-3d",
                   }}
                 >
-                  <step.icon className="w-12 h-12 text-white relative z-10" />
+                  <step.icon className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-12 lg:h-12 text-white relative z-10" />
 
                   {/* Floating particles around icon */}
                   <motion.div
@@ -256,19 +311,22 @@ const HowItWorksSection: React.FC = () => {
                   />
                 </motion.div>
 
-                {/* Text Content with enhanced styling */}
-                <motion.div whileHover={{ y: -2 }} className="space-y-3">
-                  <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[#163300] to-[#2d5f00] bg-clip-text text-transparent">
+                {/* Text Content with mobile responsive typography */}
+                <motion.div
+                  whileHover={{ y: -2 }}
+                  className="space-y-2 sm:space-y-3 px-2 sm:px-4 md:px-6 lg:px-2"
+                >
+                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-[#163300] to-[#2d5f00] bg-clip-text text-transparent">
                     {step.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed text-lg px-2">
+                  <p className="text-gray-600 leading-relaxed text-base sm:text-lg md:text-xl lg:text-lg">
                     {step.description}
                   </p>
                 </motion.div>
 
-                {/* Decorative elements */}
+                {/* Decorative elements with mobile scaling */}
                 <motion.div
-                  className="absolute -top-4 -right-4 w-8 h-8 bg-[#FFC091]/20 rounded-full"
+                  className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-8 lg:h-8 bg-[#FFC091]/20 rounded-full"
                   animate={{
                     scale: [1, 1.2, 1],
                     rotate: [0, 180, 360],
@@ -281,31 +339,6 @@ const HowItWorksSection: React.FC = () => {
                 />
               </motion.div>
             ))}
-          </div>
-
-          {/* Mobile connecting arrows */}
-          <div className="lg:hidden">
-            {workSteps.map(
-              (_, index) =>
-                index < workSteps.length - 1 && (
-                  <motion.div
-                    key={`mobile-arrow-${index}`}
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: index * 0.3 + 0.8 }}
-                    viewport={{ once: true }}
-                    className="flex justify-center my-8"
-                  >
-                    <motion.div
-                      animate={{ y: [0, 10, 0] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                      className="w-1 h-12 bg-gradient-to-b from-[#9FE870] to-[#FFC091] rounded-full relative"
-                    >
-                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[12px] border-l-transparent border-r-transparent border-t-[#FFC091]" />
-                    </motion.div>
-                  </motion.div>
-                )
-            )}
           </div>
         </div>
       </div>
