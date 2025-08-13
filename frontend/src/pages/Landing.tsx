@@ -15,8 +15,6 @@ import {
   PhoneIcon,
   EnvelopeIcon,
   MapPinIcon,
-  Bars3Icon,
-  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { StarIcon as StarSolid } from "@heroicons/react/24/solid";
 
@@ -176,7 +174,6 @@ const stats = [
 function Landing() {
   const { scrollYProgress } = useScroll();
   const yRange = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -208,11 +205,10 @@ function Landing() {
         block: "start",
       });
     }
-    setIsMenuOpen(false);
   };
 
   return (
-    <div className="relative min-h-screen bg-white overflow-hidden">
+    <div className="relative min-h-screen bg-white overflow-hidden pb-16 md:pb-0">
       {/* Navigation */}
       <motion.nav
         className={`fixed w-full z-50 transition-all duration-300 ${
@@ -274,58 +270,7 @@ function Landing() {
                 </Link>
               </motion.div>
             </div>
-
-            {/* Mobile Menu Button */}
-            <motion.button
-              className="md:hidden p-2 text-gray-700"
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? (
-                <XMarkIcon className="w-6 h-6" />
-              ) : (
-                <Bars3Icon className="w-6 h-6" />
-              )}
-            </motion.button>
           </div>
-
-          {/* Mobile Menu */}
-          <motion.div
-            className={`md:hidden overflow-hidden ${
-              isMenuOpen ? "max-h-96" : "max-h-0"
-            }`}
-            initial={false}
-            animate={{
-              height: isMenuOpen ? "auto" : 0,
-              opacity: isMenuOpen ? 1 : 0,
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="py-4 space-y-4 border-t border-gray-100 mt-4">
-              {navItems.map((item) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  onClick={(e) => handleSmoothScroll(e, item.href)}
-                  className="block px-4 py-2 text-gray-700 hover:text-[#163300] font-medium transition-colors duration-200"
-                  whileHover={{ x: 8 }}
-                >
-                  {item.name}
-                </motion.a>
-              ))}
-              <div className="flex flex-col space-y-3 px-4 pt-4">
-                <button className="text-left text-[#163300] font-medium">
-                  Masuk
-                </button>
-                <Link
-                  to="/services"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-[#163300] text-white font-semibold rounded-xl"
-                >
-                  Mulai Gratis
-                </Link>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </motion.nav>
       {/* Hero Section */}
@@ -1361,6 +1306,43 @@ function Landing() {
           </div>
         </div>
       </footer>
+
+      {/* Mobile Bottom Navigation */}
+      <motion.div
+        className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 md:hidden z-50"
+        initial={{ y: 100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="flex items-center justify-around py-2">
+          {navItems.map((item, index) => (
+            <motion.a
+              key={item.name}
+              href={item.href}
+              onClick={(e) => handleSmoothScroll(e, item.href)}
+              className="flex flex-col items-center justify-center p-2 text-gray-600 hover:text-[#163300] transition-colors duration-200"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 * index }}
+            >
+              <div className="w-6 h-6 mb-1">
+                {item.name === "Beranda" && (
+                  <GlobeAltIcon className="w-6 h-6" />
+                )}
+                {item.name === "Layanan" && <BoltIcon className="w-6 h-6" />}
+                {item.name === "Cara Kerja" && (
+                  <CheckBadgeIcon className="w-6 h-6" />
+                )}
+                {item.name === "Testimoni" && <StarIcon className="w-6 h-6" />}
+                {item.name === "Kontak" && <PhoneIcon className="w-6 h-6" />}
+              </div>
+              <span className="text-xs font-medium">{item.name}</span>
+            </motion.a>
+          ))}
+        </div>
+      </motion.div>
     </div>
   );
 }
