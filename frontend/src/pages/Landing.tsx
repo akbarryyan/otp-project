@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useState, useEffect } from "react";
 import {
   GlobeAltIcon,
   BoltIcon,
@@ -14,6 +15,8 @@ import {
   PhoneIcon,
   EnvelopeIcon,
   MapPinIcon,
+  Bars3Icon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { StarIcon as StarSolid } from "@heroicons/react/24/solid";
 
@@ -173,11 +176,146 @@ const stats = [
 function Landing() {
   const { scrollYProgress } = useScroll();
   const yRange = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navItems = [
+    { name: "Beranda", href: "#home" },
+    { name: "Layanan", href: "#services" },
+    { name: "Cara Kerja", href: "#how-it-works" },
+    { name: "Testimoni", href: "#testimonials" },
+    { name: "Kontak", href: "#contact" },
+  ];
 
   return (
     <div className="relative min-h-screen bg-white overflow-hidden">
+      {/* Navigation */}
+      <motion.nav
+        className={`fixed w-full z-50 transition-all duration-300 ${
+          isScrolled
+            ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100"
+            : "bg-transparent"
+        }`}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="w-full px-8 py-4">
+          <div className="flex items-center justify-between">
+            <motion.div
+              className="flex items-center space-x-2"
+              whileHover={{ scale: 1.05 }}
+            >
+              <div className="w-10 h-10 bg-[#163300] rounded-xl flex items-center justify-center">
+                <DevicePhoneMobileIcon className="w-6 h-6 text-white" />
+              </div>
+              <span className="text-2xl font-bold text-[#163300]">LinkOTP</span>
+            </motion.div>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-8">
+              {navItems.map((item, index) => (
+                <motion.a
+                  key={item.name}
+                  href={item.href}
+                  className="text-gray-700 hover:text-[#163300] font-medium transition-colors duration-200"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * index }}
+                  whileHover={{ y: -2 }}
+                >
+                  {item.name}
+                </motion.a>
+              ))}
+            </div>
+
+            <div className="hidden md:flex items-center space-x-4">
+              <motion.button
+                className="px-6 py-2 text-[#163300] font-medium hover:text-[#9FE870] transition-colors duration-200"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Masuk
+              </motion.button>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Link
+                  to="/services"
+                  className="px-6 py-3 bg-[#163300] hover:bg-[#9FE870] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  Mulai Gratis
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              className="md:hidden p-2 text-gray-700"
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? (
+                <XMarkIcon className="w-6 h-6" />
+              ) : (
+                <Bars3Icon className="w-6 h-6" />
+              )}
+            </motion.button>
+          </div>
+
+          {/* Mobile Menu */}
+          <motion.div
+            className={`md:hidden overflow-hidden ${
+              isMenuOpen ? "max-h-96" : "max-h-0"
+            }`}
+            initial={false}
+            animate={{
+              height: isMenuOpen ? "auto" : 0,
+              opacity: isMenuOpen ? 1 : 0,
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="py-4 space-y-4 border-t border-gray-100 mt-4">
+              {navItems.map((item) => (
+                <motion.a
+                  key={item.name}
+                  href={item.href}
+                  className="block px-4 py-2 text-gray-700 hover:text-[#163300] font-medium transition-colors duration-200"
+                  whileHover={{ x: 8 }}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </motion.a>
+              ))}
+              <div className="flex flex-col space-y-3 px-4 pt-4">
+                <button className="text-left text-[#163300] font-medium">
+                  Masuk
+                </button>
+                <Link
+                  to="/services"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-[#163300] text-white font-semibold rounded-xl"
+                >
+                  Mulai Gratis
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </motion.nav>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center">
+      <section
+        id="home"
+        className="relative min-h-screen flex items-center pt-20"
+      >
         <div className="absolute inset-0 bg-[#9FE870]/5">
           <motion.div
             className="absolute inset-0 opacity-30"
@@ -190,10 +328,48 @@ function Landing() {
               y: yRange,
             }}
           />
+
+          {/* Floating Elements */}
+          <motion.div
+            className="absolute top-20 left-20 w-20 h-20 bg-[#9FE870]/20 rounded-2xl"
+            animate={{
+              rotate: [0, 360],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+          <motion.div
+            className="absolute top-40 right-32 w-16 h-16 bg-[#FFC091]/30 rounded-full"
+            animate={{
+              y: [-20, 20, -20],
+              x: [-10, 10, -10],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-32 left-1/3 w-24 h-24 bg-[#260A2F]/20 rounded-xl"
+            animate={{
+              rotate: [0, -360],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
         </div>
 
         <div className="relative z-10 w-full px-8 py-20">
-          <div className="grid lg:grid-cols-2 gap-16 items-center max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -336,49 +512,64 @@ function Landing() {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-white">
+      <section className="py-32 bg-white">
         <div className="w-full px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <motion.div
+              className="inline-flex items-center px-4 py-2 bg-[#9FE870]/20 rounded-full text-sm font-medium text-[#163300] mb-6"
+              whileHover={{ scale: 1.05 }}
+            >
+              <SparklesIcon className="w-4 h-4 mr-2" />
+              Fitur Unggulan
+            </motion.div>
+            <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
               Mengapa Memilih
               <span className="block text-[#163300]">LinkOTP?</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600">
               Platform terdepan dengan teknologi canggih yang memberikan solusi
               verifikasi OTP terbaik
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature) => (
               <motion.div
                 key={feature.name}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: feature.delay }}
                 viewport={{ once: true }}
-                whileHover={{ y: -8 }}
+                whileHover={{ y: -12, scale: 1.02 }}
                 className="group relative"
               >
-                <div className="relative bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300">
-                  <div
-                    className={`w-16 h-16 rounded-2xl ${feature.color} p-4 mb-6 group-hover:scale-110 transition-transform duration-300`}
+                <div className="relative bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 hover:border-[#9FE870]/30">
+                  <motion.div
+                    className={`w-20 h-20 rounded-3xl ${feature.color} p-5 mb-8 group-hover:scale-110 transition-transform duration-300`}
+                    whileHover={{ rotate: [0, -10, 10, 0] }}
+                    transition={{ duration: 0.5 }}
                   >
-                    <feature.icon className="w-8 h-8 text-white" />
-                  </div>
+                    <feature.icon className="w-10 h-10 text-white" />
+                  </motion.div>
 
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-[#163300] transition-colors">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#163300] transition-colors">
                     {feature.name}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 leading-relaxed text-lg">
                     {feature.description}
                   </p>
+
+                  <motion.div
+                    className="absolute top-4 right-4 w-6 h-6 bg-[#9FE870]/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
                 </div>
               </motion.div>
             ))}
@@ -387,16 +578,37 @@ function Landing() {
       </section>
 
       {/* Statistics Section */}
-      <section className="py-24 bg-[#9FE870]/5">
-        <div className="w-full px-8">
+      <section className="py-32 bg-[#9FE870]/5 relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <motion.div
+            className="absolute top-20 left-10 w-32 h-32 bg-[#FFC091]/10 rounded-full"
+            animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
+            transition={{ duration: 20, repeat: Infinity }}
+          />
+          <motion.div
+            className="absolute bottom-20 right-10 w-24 h-24 bg-[#260A2F]/10 rounded-2xl"
+            animate={{ rotate: [0, -180, -360] }}
+            transition={{ duration: 15, repeat: Infinity }}
+          />
+        </div>
+
+        <div className="relative w-full px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <motion.div
+              className="inline-flex items-center px-4 py-2 bg-white/50 backdrop-blur-sm rounded-full text-sm font-medium text-[#163300] mb-6"
+              whileHover={{ scale: 1.05 }}
+            >
+              <StarIcon className="w-4 h-4 mr-2" />
+              Statistik Kinerja
+            </motion.div>
+            <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
               Dipercaya oleh Ribuan Pengguna
             </h2>
             <p className="text-xl text-gray-600">
@@ -404,34 +616,58 @@ function Landing() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, scale: 0.8 }}
+                initial={{ opacity: 0, scale: 0.5 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{
+                  duration: 0.8,
+                  delay: index * 0.2,
+                  type: "spring",
+                  stiffness: 100,
+                }}
                 viewport={{ once: true }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.08, y: -8 }}
                 className="text-center group"
               >
-                <div className="relative bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300">
-                  <div
-                    className={`w-16 h-16 mx-auto mb-6 rounded-2xl ${stat.color} p-4 group-hover:scale-110 transition-transform duration-300`}
+                <motion.div
+                  className="relative bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-white/50 hover:shadow-2xl transition-all duration-500"
+                  whileHover={{
+                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+                  }}
+                >
+                  <motion.div
+                    className={`w-20 h-20 mx-auto mb-8 rounded-3xl ${stat.color} p-5 group-hover:scale-110 transition-transform duration-300`}
+                    whileHover={{ rotate: [0, -10, 10, 0] }}
+                    transition={{ duration: 0.5 }}
                   >
-                    <stat.icon className="w-8 h-8 text-white" />
-                  </div>
+                    <stat.icon className="w-10 h-10 text-white" />
+                  </motion.div>
 
-                  <div className="text-4xl md:text-5xl font-bold text-[#163300] mb-2 group-hover:text-[#260A2F] transition-colors">
+                  <motion.div
+                    className="text-5xl md:text-6xl font-bold text-[#163300] mb-4 group-hover:text-[#260A2F] transition-colors"
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{ delay: 0.5 + index * 0.1, type: "spring" }}
+                    viewport={{ once: true }}
+                  >
                     {stat.value}
-                  </div>
+                  </motion.div>
 
-                  <h3 className="text-lg font-semibold text-gray-700 mb-2">
+                  <h3 className="text-xl font-bold text-gray-700 mb-3">
                     {stat.label}
                   </h3>
 
-                  <p className="text-sm text-gray-500">{stat.description}</p>
-                </div>
+                  <p className="text-gray-500 text-lg">{stat.description}</p>
+
+                  <motion.div
+                    className="absolute -top-2 -right-2 w-8 h-8 bg-[#9FE870] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                </motion.div>
               </motion.div>
             ))}
           </div>
@@ -439,77 +675,136 @@ function Landing() {
       </section>
 
       {/* OTP Services Section */}
-      <section className="py-24 bg-white">
+      <section id="services" className="py-32 bg-white">
         <div className="w-full px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <motion.div
+              className="inline-flex items-center px-4 py-2 bg-[#FFC091]/20 rounded-full text-sm font-medium text-[#260A2F] mb-6"
+              whileHover={{ scale: 1.05 }}
+            >
+              <GlobeAltIcon className="w-4 h-4 mr-2" />
+              Layanan Global
+            </motion.div>
+            <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
               Layanan OTP
               <span className="block text-[#163300]">Seluruh Dunia</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600">
               Pilih dari berbagai negara dan operator dengan harga kompetitif
+              dan tingkat keberhasilan tinggi
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {otpServices.map((service, index) => (
               <motion.div
                 key={service.country}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 50, rotateY: -15 }}
+                whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-                className="group bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-all duration-300"
+                whileHover={{
+                  y: -12,
+                  scale: 1.03,
+                  rotateY: 5,
+                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+                }}
+                className="group bg-white rounded-3xl border border-gray-200 p-8 hover:shadow-2xl transition-all duration-500 hover:border-[#9FE870]/50"
+                style={{ transformStyle: "preserve-3d" }}
               >
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center space-x-3">
-                    <span className="text-2xl">{service.flag}</span>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center space-x-4">
+                    <motion.span
+                      className="text-3xl"
+                      whileHover={{ scale: 1.2, rotate: [0, -10, 10, 0] }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {service.flag}
+                    </motion.span>
                     <div>
-                      <h3 className="font-semibold text-gray-900">
+                      <h3 className="text-xl font-bold text-gray-900 group-hover:text-[#163300] transition-colors">
                         {service.country}
                       </h3>
-                      <p className="text-sm text-gray-500">
-                        {service.operator}
-                      </p>
+                      <p className="text-gray-500">{service.operator}</p>
                     </div>
                   </div>
-                  <div className="px-3 py-1 rounded-full text-xs font-medium bg-[#9FE870]/20 text-[#163300]">
+                  <motion.div
+                    className="px-3 py-2 rounded-full text-sm font-semibold bg-[#9FE870]/20 text-[#163300]"
+                    whileHover={{ scale: 1.1 }}
+                  >
                     {service.availability}
-                  </div>
+                  </motion.div>
                 </div>
 
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">Harga</span>
-                    <span className="text-lg font-bold text-[#163300]">
+                <div className="space-y-4 mb-6">
+                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-2xl">
+                    <span className="text-gray-600 font-medium">Harga</span>
+                    <span className="text-2xl font-bold text-[#163300]">
                       {service.price}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">Success Rate</span>
-                    <span className="text-sm font-semibold text-[#9FE870]">
-                      {service.successRate}
+                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-2xl">
+                    <span className="text-gray-600 font-medium">
+                      Success Rate
                     </span>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-lg font-bold text-[#9FE870]">
+                        {service.successRate}
+                      </span>
+                      <motion.div
+                        className="w-2 h-2 bg-[#9FE870] rounded-full"
+                        animate={{ scale: [1, 1.5, 1] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      />
+                    </div>
                   </div>
                 </div>
 
                 <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full mt-4 px-4 py-2 bg-[#9FE870]/10 hover:bg-[#9FE870]/20 text-[#163300] font-medium rounded-xl transition-colors duration-200"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full px-6 py-4 bg-[#163300] hover:bg-[#9FE870] text-white font-semibold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
                   Pilih Layanan
                 </motion.button>
+
+                <motion.div
+                  className="absolute top-4 right-4 w-4 h-4 bg-[#FFC091] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  animate={{ scale: [1, 1.3, 1] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
               </motion.div>
             ))}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            viewport={{ once: true }}
+            className="text-center mt-16"
+          >
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                to="/services"
+                className="inline-flex items-center px-10 py-5 bg-[#163300] hover:bg-[#9FE870] text-white font-bold text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                Lihat Semua Layanan
+                <motion.div
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <ArrowRightIcon className="w-6 h-6 ml-3" />
+                </motion.div>
+              </Link>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
@@ -527,13 +822,13 @@ function Landing() {
               Cara Kerja
               <span className="block text-[#163300]">Yang Mudah</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600">
               Dapatkan nomor virtual dan verifikasi OTP hanya dalam 4 langkah
               sederhana
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {workSteps.map((step, index) => (
               <motion.div
                 key={step.step}
@@ -580,12 +875,12 @@ function Landing() {
               Apa Kata
               <span className="block text-[#163300]">Pengguna Kami?</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600">
               Testimoni dari ribuan pengguna yang puas dengan layanan LinkOTP
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8">
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={testimonial.name}
@@ -628,7 +923,7 @@ function Landing() {
       {/* Footer */}
       <footer className="bg-[#260A2F] text-white">
         <div className="w-full px-8">
-          <div className="py-16 grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          <div className="py-16 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="space-y-6">
               <div>
                 <h3 className="text-2xl font-bold text-[#9FE870]">LinkOTP</h3>
@@ -700,7 +995,7 @@ function Landing() {
             </div>
           </div>
 
-          <div className="py-8 border-t border-[#163300] flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto">
+          <div className="py-8 border-t border-[#163300] flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
               © 2025 LinkOTP. All rights reserved.
             </p>

@@ -10,8 +10,8 @@ import Profile from "@pages/Profile";
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<Landing />} />
       <Route path="/" element={<Layout />}>
-        <Route index element={<Landing />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="services" element={<Services />} />
         <Route path="active-orders" element={<ActiveOrders />} />
