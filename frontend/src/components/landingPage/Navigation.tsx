@@ -58,36 +58,43 @@ const Navigation: React.FC<NavigationProps> = ({
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-            <motion.button
-              className="px-6 py-2 text-[#163300] font-medium hover:text-[#9FE870] transition-colors duration-200"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Masuk
-            </motion.button>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Link
-                to="/services"
+                to="/login"
+                className="px-6 py-2 text-[#163300] font-medium hover:text-[#9FE870] transition-colors duration-200"
+              >
+                Masuk
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                to="/register"
                 className="px-6 py-3 bg-[#163300] hover:bg-[#9FE870] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
               >
-                Mulai Gratis
+                Daftar Gratis
               </Link>
             </motion.div>
           </div>
 
-          {/* Mobile Button - Only visible on mobile */}
-          <motion.div
-            className="md:hidden"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Link
-              to="/services"
-              className="px-4 py-2 bg-[#163300] hover:bg-[#9FE870] text-white text-sm font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              Mulai Gratis
-            </Link>
-          </motion.div>
+          {/* Mobile Buttons - Only visible on mobile */}
+          <div className="md:hidden flex items-center space-x-2">
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                to="/login"
+                className="px-3 py-2 text-[#163300] text-sm font-medium hover:text-[#9FE870] transition-colors duration-200"
+              >
+                Masuk
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                to="/register"
+                className="px-4 py-2 bg-[#163300] hover:bg-[#9FE870] text-white text-sm font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                Daftar
+              </Link>
+            </motion.div>
+          </div>
         </div>
       </div>
     </motion.nav>

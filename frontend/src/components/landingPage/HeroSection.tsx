@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { PlayIcon } from "@heroicons/react/24/outline";
 
 interface HeroSectionProps {
@@ -119,19 +120,23 @@ const HeroSection: React.FC<HeroSectionProps> = ({ yRange }) => {
               transition={{ duration: 0.6, delay: 0.9 }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <motion.button
-                className="px-8 py-4 bg-[#163300] text-white font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center group"
+              <motion.div
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Mulai Sekarang
-                <motion.span
-                  className="ml-2 group-hover:translate-x-1 transition-transform duration-200"
-                  initial={{ x: 0 }}
+                <Link
+                  to="/register"
+                  className="px-8 py-4 bg-[#163300] text-white font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center group"
                 >
-                  →
-                </motion.span>
-              </motion.button>
+                  Mulai Sekarang
+                  <motion.span
+                    className="ml-2 group-hover:translate-x-1 transition-transform duration-200"
+                    initial={{ x: 0 }}
+                  >
+                    →
+                  </motion.span>
+                </Link>
+              </motion.div>
 
               <motion.button
                 className="px-8 py-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:border-[#163300] hover:text-[#163300] transition-all duration-300 flex items-center justify-center group"
