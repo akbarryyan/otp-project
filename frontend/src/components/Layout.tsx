@@ -10,7 +10,8 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@store/index";
 
 const navigation = [
-  { name: "Dashboard", href: "/" },
+  { name: "Home", href: "/" },
+  { name: "Dashboard", href: "/dashboard" },
   { name: "Services", href: "/services" },
   { name: "Active Orders", href: "/active-orders" },
   { name: "Order History", href: "/order-history" },
@@ -94,11 +95,9 @@ export default function Layout() {
                         </Menu.Item>
                         {user && (
                           <Menu.Item>
-                            {({ active }) => (
-                              <div className="px-4 py-2 text-sm text-gray-500">
-                                Balance: ${user.balance.toFixed(2)}
-                              </div>
-                            )}
+                            <div className="px-4 py-2 text-sm text-gray-500">
+                              Balance: ${user.balance.toFixed(2)}
+                            </div>
                           </Menu.Item>
                         )}
                       </Menu.Items>
