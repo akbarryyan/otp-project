@@ -429,7 +429,7 @@ const OTPServicesSection: React.FC = () => {
                     boxShadow: "0 20px 40px -12px rgba(22,51,0,0.3)",
                   }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full px-6 py-4 bg-gradient-to-r from-[#163300] to-[#9FE870] hover:from-[#9FE870] hover:to-[#163300] text-white font-bold rounded-2xl transition-all duration-500 shadow-lg group-hover:shadow-2xl relative overflow-hidden"
+                  className="w-full px-6 py-4 bg-[#163300] hover:bg-[#9FE870] text-white font-bold rounded-2xl transition-all duration-500 shadow-lg group-hover:shadow-2xl relative overflow-hidden"
                 >
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
