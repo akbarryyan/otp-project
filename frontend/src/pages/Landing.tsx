@@ -289,6 +289,20 @@ function Landing() {
                 </Link>
               </motion.div>
             </div>
+
+            {/* Mobile Button - Only visible on mobile */}
+            <motion.div
+              className="md:hidden"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Link
+                to="/services"
+                className="px-4 py-2 bg-[#163300] hover:bg-[#9FE870] text-white text-sm font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                Mulai Gratis
+              </Link>
+            </motion.div>
           </div>
         </div>
       </motion.nav>
