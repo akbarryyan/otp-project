@@ -195,6 +195,22 @@ function Landing() {
     { name: "Kontak", href: "#contact" },
   ];
 
+  const handleSmoothScroll = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    e.preventDefault();
+    const targetId = href.replace("#", "");
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+    setIsMenuOpen(false);
+  };
+
   return (
     <div className="relative min-h-screen bg-white overflow-hidden">
       {/* Navigation */}
@@ -226,6 +242,7 @@ function Landing() {
                 <motion.a
                   key={item.name}
                   href={item.href}
+                  onClick={(e) => handleSmoothScroll(e, item.href)}
                   className="text-gray-700 hover:text-[#163300] font-medium transition-colors duration-200"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -289,9 +306,9 @@ function Landing() {
                 <motion.a
                   key={item.name}
                   href={item.href}
+                  onClick={(e) => handleSmoothScroll(e, item.href)}
                   className="block px-4 py-2 text-gray-700 hover:text-[#163300] font-medium transition-colors duration-200"
                   whileHover={{ x: 8 }}
-                  onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
                 </motion.a>
@@ -512,8 +529,62 @@ function Landing() {
       </section>
 
       {/* Features Section */}
-      <section className="py-32 bg-white">
-        <div className="w-full px-8">
+      <section className="py-32 bg-white relative overflow-hidden">
+        {/* Floating Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            className="absolute top-16 left-16 w-16 h-16 bg-[#9FE870]/20 rounded-full"
+            animate={{
+              y: [-20, 20, -20],
+              x: [-10, 10, -10],
+              rotate: [0, 180, 360],
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute top-32 right-20 w-12 h-12 bg-[#FFC091]/25 rounded-2xl"
+            animate={{
+              rotate: [0, -360],
+              scale: [1, 1.3, 1],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-24 left-1/4 w-20 h-20 bg-[#260A2F]/15 rounded-3xl"
+            animate={{
+              y: [0, -30, 0],
+              rotate: [0, 90, 180, 270, 360],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-16 right-32 w-14 h-14 bg-[#163300]/20 rounded-xl"
+            animate={{
+              x: [-15, 15, -15],
+              y: [-10, 10, -10],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </div>
+
+        <div className="relative w-full px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -675,8 +746,78 @@ function Landing() {
       </section>
 
       {/* OTP Services Section */}
-      <section id="services" className="py-32 bg-white">
-        <div className="w-full px-8">
+      <section
+        id="services"
+        className="py-32 bg-white relative overflow-hidden"
+      >
+        {/* Floating Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            className="absolute top-20 left-12 w-24 h-24 bg-[#9FE870]/15 rounded-2xl"
+            animate={{
+              rotate: [0, 360],
+              scale: [1, 1.1, 1],
+              y: [-15, 15, -15],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+          <motion.div
+            className="absolute top-40 right-16 w-18 h-18 bg-[#FFC091]/20 rounded-full"
+            animate={{
+              x: [-20, 20, -20],
+              y: [-25, 25, -25],
+              scale: [1, 1.4, 1],
+            }}
+            transition={{
+              duration: 16,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-32 left-20 w-16 h-16 bg-[#260A2F]/25 rounded-3xl"
+            animate={{
+              rotate: [0, -180, -360],
+              x: [-10, 10, -10],
+            }}
+            transition={{
+              duration: 22,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-20 right-24 w-20 h-20 bg-[#163300]/15 rounded-xl"
+            animate={{
+              y: [0, -20, 0],
+              rotate: [0, 270, 360],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute top-1/2 left-8 w-12 h-12 bg-[#9FE870]/30 rounded-full"
+            animate={{
+              scale: [1, 1.5, 1],
+              rotate: [0, 180, 360],
+            }}
+            transition={{
+              duration: 14,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </div>
+
+        <div className="relative w-full px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -809,8 +950,75 @@ function Landing() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-24 bg-[#FFC091]/5">
-        <div className="w-full px-8">
+      <section className="py-24 bg-[#FFC091]/5 relative overflow-hidden">
+        {/* Floating Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            className="absolute top-16 left-16 w-32 h-32 bg-[#9FE870]/15 rounded-full"
+            animate={{
+              x: [0, 30, 0],
+              y: [0, -20, 0],
+              scale: [1, 1.3, 1],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute top-32 right-12 w-20 h-20 bg-[#163300]/15 rounded-3xl"
+            animate={{
+              rotate: [0, 360],
+              y: [-30, 30, -30],
+              x: [-15, 15, -15],
+            }}
+            transition={{
+              duration: 19,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-40 left-32 w-14 h-14 bg-[#260A2F]/20 rounded-xl"
+            animate={{
+              scale: [1, 1.6, 1],
+              rotate: [0, -270, -360],
+            }}
+            transition={{
+              duration: 21,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-24 right-20 w-26 h-26 bg-[#FFC091]/20 rounded-2xl"
+            animate={{
+              y: [0, -25, 0],
+              rotate: [0, 180, 360],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 17,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute top-1/2 right-8 w-10 h-10 bg-[#9FE870]/25 rounded-full"
+            animate={{
+              x: [-25, 25, -25],
+              scale: [1, 1.8, 1],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </div>
+
+        <div className="relative w-full px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -862,8 +1070,78 @@ function Landing() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-24 bg-white">
-        <div className="w-full px-8">
+      <section
+        id="testimonials"
+        className="py-24 bg-white relative overflow-hidden"
+      >
+        {/* Floating Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            className="absolute top-20 left-20 w-28 h-28 bg-[#260A2F]/10 rounded-3xl"
+            animate={{
+              rotate: [0, 180, 360],
+              scale: [1, 1.2, 1],
+              y: [-20, 20, -20],
+            }}
+            transition={{
+              duration: 23,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute top-16 right-16 w-16 h-16 bg-[#9FE870]/20 rounded-full"
+            animate={{
+              x: [-30, 30, -30],
+              y: [0, -15, 0],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-32 left-12 w-22 h-22 bg-[#FFC091]/15 rounded-xl"
+            animate={{
+              y: [0, -25, 0],
+              rotate: [0, -180, -360],
+              scale: [1, 1.3, 1],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-16 right-32 w-18 h-18 bg-[#163300]/20 rounded-2xl"
+            animate={{
+              rotate: [0, 270, 360],
+              x: [-20, 20, -20],
+            }}
+            transition={{
+              duration: 16,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+          <motion.div
+            className="absolute top-1/2 left-6 w-12 h-12 bg-[#260A2F]/25 rounded-full"
+            animate={{
+              scale: [1, 1.7, 1],
+              y: [-15, 15, -15],
+            }}
+            transition={{
+              duration: 14,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </div>
+
+        <div className="relative w-full px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -921,8 +1199,78 @@ function Landing() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#260A2F] text-white">
-        <div className="w-full px-8">
+      <footer
+        id="contact"
+        className="bg-[#260A2F] text-white relative overflow-hidden"
+      >
+        {/* Floating Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            className="absolute top-24 left-24 w-24 h-24 bg-[#9FE870]/20 rounded-2xl"
+            animate={{
+              rotate: [0, -360],
+              scale: [1, 1.4, 1],
+              x: [-10, 10, -10],
+            }}
+            transition={{
+              duration: 26,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute top-16 right-20 w-20 h-20 bg-[#FFC091]/15 rounded-full"
+            animate={{
+              y: [0, -30, 0],
+              x: [0, 25, 0],
+              scale: [1, 1.6, 1],
+            }}
+            transition={{
+              duration: 22,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-40 left-16 w-16 h-16 bg-white/10 rounded-3xl"
+            animate={{
+              rotate: [0, 180, 360],
+              y: [-25, 25, -25],
+            }}
+            transition={{
+              duration: 24,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-32 right-12 w-30 h-30 bg-[#9FE870]/10 rounded-xl"
+            animate={{
+              scale: [1, 1.2, 1],
+              rotate: [0, -270, -360],
+              x: [-15, 15, -15],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute top-1/2 right-6 w-14 h-14 bg-[#FFC091]/20 rounded-full"
+            animate={{
+              y: [-20, 20, -20],
+              scale: [1, 1.8, 1],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </div>
+
+        <div className="relative w-full px-8">
           <div className="py-16 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="space-y-6">
               <div>
